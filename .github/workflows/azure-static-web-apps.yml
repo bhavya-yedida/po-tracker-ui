@@ -36,7 +36,7 @@ jobs:
       - name: Upload to Azure Storage Static Website
         uses: azure/CLI@v1
         env:
-          AZURE_STORAGE_ACCOUNT: mystorage
+          AZURE_STORAGE_ACCOUNT: ptrkuic22c0ee1
           AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
         with:
           inlineScript: |
