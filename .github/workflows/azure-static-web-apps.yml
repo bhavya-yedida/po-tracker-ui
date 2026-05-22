@@ -1,37 +1,43 @@
-name: Azure Static Web Apps CI/CD
+name: Deploy React App to Azure Storage Static Website
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
+    branches: [main]
 
 jobs:
-  build_and_deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    name: Build and deploy React app to Azure Static Web Apps
 
     steps:
-      - uses: actions/checkout@v4
+      # 1. Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: 18
 
+      # 3. Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build app
+      # 4. Build React app
+      - name: Build React app
         run: npm run build
 
-      - name: Deploy to Azure Static Web Apps
-        uses: Azure/static-web-apps-deploy@v1
+      # 5. Upload to Azure Storage ($web)
+      - name: Upload to Azure Storage Static Website
+        uses: azure/CLI@v1
+        env:
+          AZURE_STORAGE_ACCOUNT: mystorage
+          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "/"
-          api_location: ""
-          output_location: "dist"
+          inlineScript: |
+            az storage blob upload-batch \
+              --account-name $AZURE_STORAGE_ACCOUNT \
+              --auth-mode key \
+              --destination '$web' \
+              --source build \
+              --overwrite
