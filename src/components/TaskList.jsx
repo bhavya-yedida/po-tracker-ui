@@ -54,7 +54,7 @@ function TaskList({
                 {task.done ? "✓" : "○"}
               </button>
 
-              <span>{task.label}</span>
+              <span>{task.title}</span>
 
               <div className="task-actions">
                 <button onClick={() => openEditModal(task)}>
