@@ -2,7 +2,7 @@ name: Deploy React App to Azure Storage Static Website
 
 on:
   push:
-    branches: [main]
+    branches: [feature/phase1]
 
 jobs:
   build-and-deploy:
