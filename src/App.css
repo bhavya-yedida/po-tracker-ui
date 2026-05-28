@@ -1,226 +1,463 @@
-:root {
-  --bg: #f6f7fb;
-  --panel: #ffffff;
-  --border: #e5e7eb;
-  --text: #111827;
-  --muted: #6b7280;
-  --accent: #4f46e5;
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: Inter, sans-serif;
+  background: #f6f7fb;
+  color: #18181b;
 }
 
-/* =========================
-   MAIN LAYOUT
-========================= */
-.app-shell {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px;
+/* =========================================================
+   LAYOUT
+========================================================= */
 
-  display: grid;
-  grid-template-columns: 1fr 1.3fr 1fr;
-  gap: 20px;
-  align-items: start;
-}
-
-/* =========================
-   PANEL CARDS
-========================= */
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-}
-
-/* HEADER */
-.panel-header {
+.layout {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
+  height: 100vh;
 }
 
-.panel-header h2 {
-  font-size: 18px;
-  margin: 0;
-}
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
-/* =========================
-   CHECKLIST + TASK LIST
-========================= */
-.checklist,
-.task-list {
-  display: grid;
-  gap: 10px;
-}
+.sidebar {
+  width: 260px;
 
-/* TASK ITEM */
-.task-list li {
+  background: #ffffff;
+
+  border-right: 1px solid #e4e4e7;
+
+  padding: 24px;
+
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #fff;
+  flex-direction: column;
 }
 
-.task-list li.task-done {
-  opacity: 0.6;
-  text-decoration: line-through;
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+
+  color: #18181b;
+
+  margin-bottom: 32px;
 }
 
-/* TOGGLE BUTTON */
-.task-toggle {
-  border: 1px solid var(--border);
-  background: transparent;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  color: var(--accent);
+/* NAV LINKS */
+
+.nav-link {
+  display: block;
+
+  padding: 13px 16px;
+
+  margin-bottom: 8px;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  color: #52525b;
+
+  transition: 0.2s;
 }
 
-/* =========================
-   TASK INPUT
-========================= */
-.task-input-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
+.nav-link:hover {
+  background: #fff7ed;
+  color: #ea580c;
 }
 
-.task-input-row input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  outline: none;
-}
-
-.task-input-row button {
-  padding: 10px 14px;
-  border: none;
-  border-radius: 10px;
-  background: var(--accent);
+.nav-link.active {
+  background: #f59e0b;
   color: white;
-  cursor: pointer;
+
   font-weight: 600;
 }
 
-/* =========================
-   FILTERS
-========================= */
-.filters {
+/* =========================================================
+   MAIN AREA
+========================================================= */
+
+.main-area {
+  flex: 1;
+
   display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
-.filters button {
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: #f9fafb;
-  cursor: pointer;
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+  height: 72px;
+
+  background: rgba(255,255,255,0.9);
+
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid #e4e4e7;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
 }
 
-.filters button:hover {
-  background: #eef2ff;
-  border-color: var(--accent);
+/* SEARCH */
+
+.search {
+  width: 320px;
+
+  background: #f4f4f5;
+
+  border: 1px solid #e4e4e7;
+
+  border-radius: 14px;
+
+  padding: 12px 16px;
+
+  color: #18181b;
+
+  font-size: 14px;
 }
 
-/* =========================
-   NOTES
-========================= */
+.search::placeholder {
+  color: #71717a;
+}
+
+.search:focus {
+  outline: none;
+
+  border-color: #f59e0b;
+
+  background: white;
+}
+
+/* RIGHT */
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* AVATAR */
+
+.avatar {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: #f59e0b;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+  padding: 40px;
+}
+
+/* CONTAINER */
+
+.notes-wrapper,
+.dashboard-wrapper {
+  max-width: 900px;
+}
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 18px;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card-box,
+.item,
+.auth .card {
+  background: #ffffff;
+
+  border: 1px solid #e4e4e7;
+
+  border-radius: 22px;
+
+  padding: 22px;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 18px;
+
+  margin-top: 20px;
+}
+
+/* =========================================================
+   ITEM
+========================================================= */
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+input,
 textarea {
   width: 100%;
-  min-height: 200px;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  resize: vertical;
-}
 
-/* =========================
-   EMPTY STATE
-========================= */
-.empty-state {
-  color: var(--muted);
-  padding: 10px;
-}
+  background: #f4f4f5;
 
-/* =========================
-   MODAL
-========================= */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  border: 1px solid #e4e4e7;
 
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  width: 320px;
-}
+  border-radius: 14px;
 
-.modal input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  padding: 14px 16px;
+
+  color: #18181b;
+
+  font-size: 15px;
+
   margin-top: 10px;
+
+  transition: 0.2s;
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 12px;
+textarea {
+  min-height: 120px;
+  resize: none;
 }
 
-.modal-actions button {
-  padding: 8px 12px;
+input::placeholder,
+textarea::placeholder {
+  color: #71717a;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+
+  border-color: #f59e0b;
+
+  background: white;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+button {
+  background: #f59e0b;
+
+  color: white;
+
   border: none;
-  border-radius: 8px;
+
+  border-radius: 14px;
+
+  padding: 12px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
   cursor: pointer;
+
+  transition: 0.2s;
 }
 
-.modal-actions button:first-child {
-  background: var(--accent);
+button:hover {
+  background: #ea580c;
+}
+
+/* LOGOUT */
+
+button[style] {
+  background: #ef4444 !important;
+}
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+.auth {
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f6f7fb;
+}
+
+.auth .card {
+  width: 360px;
+
+  padding: 30px;
+}
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+body.dark {
+  background: #18181b;
+  color: #f4f4f5;
+}
+
+/* SIDEBAR */
+
+body.dark .sidebar {
+  background: #202127;
+  border-right: 1px solid #313244;
+}
+
+/* LOGO */
+
+body.dark .logo {
   color: white;
 }
 
-.modal-actions button:last-child {
-  background: #eee;
+/* NAV */
+
+body.dark .nav-link {
+  color: #d4d4d8;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 1000px) {
-  .app-shell {
-    grid-template-columns: 1fr;
-  }
+body.dark .nav-link:hover {
+  background: #2f313a;
+  color: white;
 }
 
-.panel-header input[type="date"] {
-  padding: 6px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  font-size: 12px;
+body.dark .nav-link.active {
+  background: #f59e0b;
+  color: #18181b;
+}
+
+/* TOPBAR */
+
+body.dark .topbar {
+  background: #202127;
+  border-bottom: 1px solid #313244;
+}
+
+/* SEARCH */
+
+body.dark .search {
+  background: #2a2b33;
+  border: 1px solid #3f3f46;
+
+  color: white;
+}
+
+body.dark .search::placeholder {
+  color: #a1a1aa;
+}
+
+body.dark .search:focus {
+  border-color: #f59e0b;
+  background: #32343d;
+}
+
+/* CONTENT */
+
+body.dark .content {
+  background: #18181b;
+}
+
+/* CARDS */
+
+body.dark .card-box,
+body.dark .item,
+body.dark .auth .card {
+  background: #23252d;
+
+  border: 1px solid #313244;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* INPUTS */
+
+body.dark input,
+body.dark textarea {
+  background: #2a2b33;
+
+  border: 1px solid #3f3f46;
+
+  color: white;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #a1a1aa;
+}
+
+body.dark input:focus,
+body.dark textarea:focus {
+  border-color: #f59e0b;
+  background: #32343d;
+}
+
+/* BUTTON */
+
+body.dark button {
+  background: #f59e0b;
+  color: #18181b;
+}
+
+body.dark button:hover {
+  background: #fbbf24;
+}
+
+/* HEADINGS */
+
+body.dark h1,
+body.dark h2,
+body.dark h3 {
+  color: white;
 }

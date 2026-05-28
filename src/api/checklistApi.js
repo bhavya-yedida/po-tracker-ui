@@ -1,32 +1,9 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL + "/checklist";
+import api from "./axios";
 
-export const getChecklist = async () => {
-  const response = await fetch(BASE_URL);
-  return response.json();
-};
+export const getChecklist = () => api.get("/checklist");
 
-export const createChecklistItem = async (item) => {
-  const response = await fetch(BASE_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(item),
-  });
+export const createChecklist = (data) =>
+  api.post("/checklist", data);
 
-  return response.json();
-};
-
-export const toggleChecklistItem = async (id) => {
-  const response = await fetch(`${BASE_URL}/toggle`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      id,
-    }),
-  });
-
-  return response.json();
-};
+export const toggleChecklist = (id) =>
+  api.put(`/checklist/toggle/${id}`);
